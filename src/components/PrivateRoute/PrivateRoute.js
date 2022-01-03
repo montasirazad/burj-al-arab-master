@@ -1,15 +1,12 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useContext } from 'react';
+import {Navigate, Outlet} from "react-router-dom"
 import { userContext } from '../../App';
 
-const PrivateRoute = ({ children, ...rest }) => {
-    
-    const [loggedInUser, setLoggedInUser] = userContext(userContext);
-     if (loggedInUser.email && loggedInUser.isLogged) {
-         return children
-     }
+const PrivateRoute = () => {
+    const [loggedInUser, setLoggedInUser] = useContext(userContext)
 
-     return <Navigate to='/login' />
+    return loggedInUser.email ?  <Outlet/> : <Navigate to='/logIn'/>
 };
 
 export default PrivateRoute;

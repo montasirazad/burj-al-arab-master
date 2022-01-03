@@ -5,10 +5,13 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useContext } from 'react';
 import { userContext } from '../../App';
+import { useNavigate, useParams } from 'react-router-dom';
+import '../../App.css'
 
 const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(userContext)
-
+    const navigate = useNavigate();
+    const bedType = useParams()
 
     const googleLogIn = () => {
         if (firebase.apps.length === 0) {
@@ -28,11 +31,12 @@ const Login = () => {
                     name: displayName,
                     email: email,
                     photo: photoURL,
-                    isLogged:true
+                    isLogged: true
                 }
                 setLoggedInUser(newUser)
+                navigate(`/book/${bedType}`);
 
-                console.log(result.user);
+                //console.log(result.user);
             }).catch((error) => {
 
                 var errorCode = error.code;
@@ -43,9 +47,9 @@ const Login = () => {
             });
     }
     return (
-        <div>
+        <div className='App'>
             <h1>This is Login</h1>
-            <button onClick={googleLogIn}>LoG-In</button>
+            <button onClick={googleLogIn}>LoG-In-With-Google</button>
         </div>
     );
 };

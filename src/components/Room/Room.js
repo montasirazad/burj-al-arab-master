@@ -42,8 +42,11 @@ export default function Room({room}){
   const classes = useStyles();
   const navigate = useNavigate()
     const handleBook = (bedType) => {
-        navigate(`/book/${bedType}`);
+      
+       navigate(`/book/${bedType}`)
     }
+
+     
   return (
     <Card className={classes.root}>
       <CardHeader
