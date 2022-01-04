@@ -30,10 +30,10 @@ const Login = () => {
                 const newUser = {
                     name: displayName,
                     email: email,
-                    photo: photoURL,
                     isLogged: true
                 }
                 setLoggedInUser(newUser)
+                storeAuthToken();
                 navigate(`/book/${bedType}`);
 
                 //console.log(result.user);
@@ -46,6 +46,15 @@ const Login = () => {
 
             });
     }
+
+    const storeAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+          sessionStorage.setItem('token', idToken);
+        }).catch(function (error) {
+            // Handle error
+        });
+    }
+
     return (
         <div className='App'>
             <h1>This is Login</h1>
